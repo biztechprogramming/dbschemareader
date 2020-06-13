@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.Common;
+using Oracle.ManagedDataAccess.Client;
 
 namespace DatabaseSchemaReader.Utilities.DbProvider
 {
@@ -18,6 +19,7 @@ namespace DatabaseSchemaReader.Utilities.DbProvider
             //a simple static manual override.
             if (SingleProviderFactory != null) return SingleProviderFactory;
             if (ProviderRepository != null) return ProviderRepository.GetFactory(providerName);
+            if (providerName == "Oracle.ManagedAccess.Client") { return new OracleClientFactory(); }
             return DbProviderFactories.GetFactory(providerName);
         }
 
